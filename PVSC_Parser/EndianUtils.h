@@ -17,16 +17,16 @@
 
 #define __UINT32_ADDR_DEREF(p, offset) (*(uint32_t*)(((uint8_t*)(p))+(offset)))
 
-static inline uint32_t ENDIAN_REVERSE_32(uint32_t src){
+static inline uint32_t ENDIAN_REVERSE_32(uint32_t src) {
     return (((src << 8) & 0x00ff0000) | ((src << 24) & 0xff000000) | ((src >> 8) & 0x0000ff00) | ((src >> 24) & 0x000000ff));
 }
 
-static inline uint32_t __GET_UINT32_WITH_REVERSE(uint32_t* addr){
+static inline uint32_t __GET_UINT32_WITH_REVERSE(uint32_t* addr) {
     uint32_t raw = __UINT32_ADDR_DEREF(addr,0);
     return ENDIAN_REVERSE_32(raw);
 }
 
-static inline uint32_t __GET_UINT32_RAW(uint32_t* addr){
+static inline uint32_t __GET_UINT32_RAW(uint32_t* addr) {
     return __UINT32_ADDR_DEREF(addr,0);
 }
 
@@ -41,9 +41,9 @@ static inline uint32_t __GET_UINT32_RAW(uint32_t* addr){
 #endif
 
 
-enum ENDIAN_TYPE{ENDIAN_BE = 0, ENDIAN_LE};
+enum ENDIAN_TYPE {ENDIAN_BE = 0, ENDIAN_LE};
 
-static inline uint32_t DATA32(ENDIAN_TYPE endian, uint32_t* addr){
+static inline uint32_t DATA32(ENDIAN_TYPE endian, uint32_t* addr) {
     if(endian == ENDIAN_BE)
         return BE32(addr);
     else

@@ -13,7 +13,7 @@
 #include "DSC_Info.h"
 
 class Inst_PVSC_Header :
-public InstPluginInterface {
+    public InstPluginInterface {
 public:
     virtual bool register_inst(IN EngineCore* engine, OUT uint32_t* opcode);
     virtual bool unregister_inst(IN EngineCore* engine);

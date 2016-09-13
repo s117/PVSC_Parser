@@ -26,9 +26,9 @@ bool Inst_PVSC_Header::unregister_inst(IN EngineCore* engine) {
 STEP Inst_PVSC_Header::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence) {
     if (len_sequence < INST_SIZE)
         return STEP_BAD_INSTRUCTION_FORMAT;
-    
+
     assert(DATA32(core->get_endian(),(uint32_t*)sequence) == INST_OP_CODE);
-    
+
     uint32_t header_payload_1 = LE32((uint32_t*)(sequence+4));
     uint32_t header_payload_2 = LE32((uint32_t*)(sequence+20));
     uint32_t header_offset_8 = LE32((uint32_t*)(sequence+8));
@@ -36,36 +36,36 @@ STEP Inst_PVSC_Header::parse_inst(IN const uint8_t* sequence, IN uint32_t len_se
     uint32_t header_UID = LE32((uint32_t*)(sequence+32));
     uint32_t header_endian_flag_le32 = LE32((uint32_t*)(sequence+48));
     uint32_t header_endian_flag_actual = LE32((uint32_t*)(sequence+64));
-    
-    if(header_offset_8 != 0x00000040){
+
+    if(header_offset_8 != 0x00000040) {
         return STEP_BAD_INSTRUCTION_FORMAT;
     }
-        
-    if(header_version == 0x18000000){
+
+    if(header_version == 0x18000000) {
         this->info->ver = DSC_Info::VERSION::F2;
-    } else if(header_version == 0x10000000){
+    } else if(header_version == 0x10000000) {
         this->info->ver = DSC_Info::VERSION::X;
-    } else{
+    } else {
         return STEP_BAD_INSTRUCTION_FORMAT;
     }
-    
-    if((header_payload_1 != header_payload_2) || (header_payload_1+112 != len_sequence)){
+
+    if((header_payload_1 != header_payload_2) || (header_payload_1+112 != len_sequence)) {
         return STEP_BAD_INSTRUCTION_FORMAT;
     }
-    
-    if(header_endian_flag_le32 == header_endian_flag_actual){
+
+    if(header_endian_flag_le32 == header_endian_flag_actual) {
         core->set_endian(ENDIAN_TYPE::ENDIAN_LE);
         this->info->endian = ENDIAN_TYPE::ENDIAN_LE;
     } else if (header_endian_flag_le32 ==
-               ENDIAN_REVERSE_32(header_endian_flag_actual)){
+               ENDIAN_REVERSE_32(header_endian_flag_actual)) {
         core->set_endian(ENDIAN_TYPE::ENDIAN_BE); // TODO
         this->info->endian = ENDIAN_TYPE::ENDIAN_BE;
     } else {
         return STEP_BAD_INSTRUCTION_FORMAT;
     }
-    
+
     printf("#PVSC\n");
-    
+
     return INST_SIZE;
 }
 

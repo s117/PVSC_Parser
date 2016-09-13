@@ -7,9 +7,9 @@
 
 class DSC_Info {
 public:
-    enum VERSION{F, F2, X};
-    
-	uint32_t base_time;
+    enum VERSION {F, F2, X};
+
+    uint32_t base_time;
     VERSION ver;
     ENDIAN_TYPE endian;
     uint32_t payload_len;
