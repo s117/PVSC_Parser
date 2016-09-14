@@ -59,7 +59,7 @@ STEP EngineCore::step() {
     if (len_remaining == 0)
         return STEP_END_OF_SEQUENCE;
 
-    inst = m_map_insts[*(uint32_t*)cur_parse_pos];
+    inst = m_map_insts[LE32((uint32_t*)cur_parse_pos)];
     if (inst == nullptr)
         return STEP_UNKNOW_INSTRUCTION;
 

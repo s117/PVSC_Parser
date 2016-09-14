@@ -26,7 +26,7 @@ STEP Inst_nop::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence) 
     if (len_sequence < INST_SIZE)
         return STEP_BAD_INSTRUCTION_FORMAT;
 
-    assert(*((uint32_t*)sequence) == this->opcode);
+    assert(LE32((uint32_t*)sequence) == this->opcode);
 
     return INST_SIZE;
 }

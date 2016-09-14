@@ -28,7 +28,7 @@ STEP Inst_Timestamp::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequ
     if (len_sequence < INST_SIZE)
         return STEP_BAD_INSTRUCTION_FORMAT;
 
-    assert(*((uint32_t*)sequence) == this->opcode);
+    assert(LE32((uint32_t*)sequence) == this->opcode);
     info->base_time = DATA32(info->endian,(uint32_t*)(sequence+4));
 
     return INST_SIZE;

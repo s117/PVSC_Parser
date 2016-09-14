@@ -13,7 +13,6 @@
 		13967A961D87419D00B01C79 /* Inst_op_56.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13967A8F1D87419D00B01C79 /* Inst_op_56.cpp */; };
 		13967A971D87419D00B01C79 /* Inst_Timestamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13967A901D87419D00B01C79 /* Inst_Timestamp.cpp */; };
 		13967A981D87419D00B01C79 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13967A911D87419D00B01C79 /* main.cpp */; };
-		13967A9B1D87B4AA00B01C79 /* Inst_PVSC_Header.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13967A991D87B4AA00B01C79 /* Inst_PVSC_Header.cpp */; };
 		13967A9E1D87B4E700B01C79 /* Inst_EOFC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13967A9C1D87B4E700B01C79 /* Inst_EOFC.cpp */; };
 		13967AA11D87B51800B01C79 /* Inst_nop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13967A9F1D87B51800B01C79 /* Inst_nop.cpp */; };
 /* End PBXBuildFile section */
@@ -47,8 +46,6 @@
 		13967A8F1D87419D00B01C79 /* Inst_op_56.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Inst_op_56.cpp; sourceTree = "<group>"; };
 		13967A901D87419D00B01C79 /* Inst_Timestamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Inst_Timestamp.cpp; sourceTree = "<group>"; };
 		13967A911D87419D00B01C79 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		13967A991D87B4AA00B01C79 /* Inst_PVSC_Header.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Inst_PVSC_Header.cpp; sourceTree = "<group>"; };
-		13967A9A1D87B4AA00B01C79 /* Inst_PVSC_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inst_PVSC_Header.h; sourceTree = "<group>"; };
 		13967A9C1D87B4E700B01C79 /* Inst_EOFC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Inst_EOFC.cpp; sourceTree = "<group>"; };
 		13967A9D1D87B4E700B01C79 /* Inst_EOFC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inst_EOFC.h; sourceTree = "<group>"; };
 		13967A9F1D87B51800B01C79 /* Inst_nop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Inst_nop.cpp; sourceTree = "<group>"; };
@@ -117,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				13967A831D87419400B01C79 /* DSC_Info.h */,
-				13967A9A1D87B4AA00B01C79 /* Inst_PVSC_Header.h */,
 				13967A9D1D87B4E700B01C79 /* Inst_EOFC.h */,
 				13967AA01D87B51800B01C79 /* Inst_nop.h */,
 				13967A861D87419400B01C79 /* Inst_Note.h */,
@@ -131,7 +127,6 @@
 		13967AA61D87E49300B01C79 /* Instruction */ = {
 			isa = PBXGroup;
 			children = (
-				13967A991D87B4AA00B01C79 /* Inst_PVSC_Header.cpp */,
 				13967A9C1D87B4E700B01C79 /* Inst_EOFC.cpp */,
 				13967A9F1D87B51800B01C79 /* Inst_nop.cpp */,
 				13967A8D1D87419D00B01C79 /* Inst_Note.cpp */,
@@ -232,7 +227,6 @@
 				13967A941D87419D00B01C79 /* Inst_Note.cpp in Sources */,
 				13967A961D87419D00B01C79 /* Inst_op_56.cpp in Sources */,
 				13967AA11D87B51800B01C79 /* Inst_nop.cpp in Sources */,
-				13967A9B1D87B4AA00B01C79 /* Inst_PVSC_Header.cpp in Sources */,
 				13967A981D87419D00B01C79 /* main.cpp in Sources */,
 				13967A971D87419D00B01C79 /* Inst_Timestamp.cpp in Sources */,
 			);
@@ -355,6 +349,7 @@
 				13967A7E1D87414900B01C79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

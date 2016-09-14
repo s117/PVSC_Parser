@@ -90,7 +90,7 @@ STEP Inst_Note::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence)
     if (len_sequence < INST_SIZE)
         return STEP_BAD_INSTRUCTION_FORMAT;
 
-    assert(*((uint32_t*)sequence) == this->opcode);
+    assert(LE32((uint32_t*)sequence) == this->opcode);
 
     uint32_t note_keycode = DATA32(info->endian,(uint32_t*)(sequence + 0x4));
 
@@ -109,13 +109,13 @@ STEP Inst_Note::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence)
     uint32_t note_unk3 = DATA32(info->endian,(uint32_t*)(sequence + 0x2C));
     uint32_t note_unk4 = DATA32(info->endian,(uint32_t*)(sequence + 0x30));
 
-    if((NOTE_KEYCODE::TRIANGLE_HOLD <= note_keycode) && (note_keycode <= NOTE_KEYCODE::RECTANGLE_HOLD)) {
+    if((NOTE_KEYCODE::TRIANGLE_LONG <= note_keycode) && (note_keycode <= NOTE_KEYCODE::SQUARE_LONG)) {
         if(note_hold_length != 0xffffffff) {
             printf("Off:%08X, Note %s_DOWN, time: %d(%d + %d), hold param: %d(length), %d\n", core->get_offset() + 72, ((note_keycode <= 0x1c) ? NoteName[note_keycode] : "OUT_OF_RANGE"), note_time_offset + this->info->base_time, this->info->base_time, note_time_offset, note_hold_length, note_hold2);
         } else {
             printf("Off:%08X, Note %s_UP, time: %d(%d + %d)\n", core->get_offset() + 72, ((note_keycode <= 0x1c) ? NoteName[note_keycode] : "OUT_OF_RANGE"), note_time_offset + this->info->base_time, this->info->base_time, note_time_offset);
         }
-    } else if((NOTE_KEYCODE::TRIANGLE_RUSH <= note_keycode) && (note_keycode <= NOTE_KEYCODE::RECTANGLE_RUSH)) {
+    } else if((NOTE_KEYCODE::TRIANGLE_RUSH <= note_keycode) && (note_keycode <= NOTE_KEYCODE::SQUARE_RUSH)) {
         printf("Off:%08X, Note %s, time: %d(%d + %d), rush param: %d(length), %d\n", core->get_offset() + 72, ((note_keycode <= 0x1c) ? NoteName[note_keycode] : "OUT_OF_RANGE"), note_time_offset + this->info->base_time, this->info->base_time, note_time_offset, note_hold_length, note_hold2);
     } else {
 

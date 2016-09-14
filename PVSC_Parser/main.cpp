@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "EngineCore.h"
 
-#include "Inst_PVSC_Header.h"
 #include "Inst_EOFC.h"
 #include "Inst_nop.h"
 #include "Inst_op_55.h"
@@ -11,42 +10,6 @@
 #include "Inst_Note.h"
 
 #include "712_extreme.h"
-
-/*
-int main(int argc, char* argv[]) {
-	STEP step = 0;
-	DSC_Info info;
-    info.endian = ENDIAN_LE;
-    info.ver = DSC_Info::VERSION::X;
-	Inst_op_55 *i55 = new Inst_op_55(&info);
-	Inst_op_56 *i56 = new Inst_op_56(&info);
-	Inst_Timestamp *it = new Inst_Timestamp(&info);
-	Inst_Note *in = new Inst_Note(&info);
-    Inst_EOFC *ieof = new Inst_EOFC(&info);
-    Inst_nop *inop = new Inst_nop(&info);
-    Inst_PVSC_Header *iphdr = new Inst_PVSC_Header(&info);
-	EngineCore	*core = new EngineCore();
-	core->add_inst(i55);
-	core->add_inst(i56);
-	core->add_inst(it);
-	core->add_inst(in);
-    core->add_inst(ieof);
-    core->add_inst(inop);
-    core->add_inst(iphdr);
-	core->set_sequence(data, sizeof(data));
-	while (1) {
-		step = core->step();
-		if (step & (1 << 31)) {
-            if(step == STEP_END_OF_SEQUENCE)
-                break;
-			printf("fatal error, code: %08X", step);
-			exit(1);
-		}
-	}
-	return 0;
-
-}
-*/
 
 #define PVSC_LE             (0x43535650) //'PVSC'
 #define PVSC_HEADER_LEN		(72)
