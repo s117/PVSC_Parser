@@ -29,6 +29,19 @@ STEP Inst_op_56::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence
 
     assert(LE32((uint32_t*)sequence) == this->opcode);
 
+    TimeStamp *stamp = this->info->event_seq.back();
+    Inst *inst = new Inst;
+    I56 *i56 = new I56;
+
+    stamp->inst_list.push_back(inst);
+
+    inst->itype = Inst::InstType::I56;
+    inst->idata = i56;
+
+    const int len_header = 72;
+    i56->file_offset = core->get_offset() + len_header;
+    i56->i55_unk1 = DATA32(info->endian,(uint32_t*)(sequence + 0x4));
+
     return INST_SIZE;
 }
 

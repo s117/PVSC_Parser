@@ -9,22 +9,25 @@
 #include "Inst_Timestamp.h"
 #include "Inst_Note.h"
 
-#include "712_extreme.h"
+#include "801_extreme.h"
 
 #define PVSC_LE             (0x43535650) //'PVSC'
 #define PVSC_HEADER_LEN		(72)
 
 
-STEP parse_dsc(const uint8_t* sequence, uint32_t len_sequence) {
+STEP parse_dsc(DSC_Info *info, const uint8_t* sequence, uint32_t len_sequence) {
+    if(info == nullptr)
+        return STEP_UNKNOW_INSTRUCTION;
+
     STEP step;
-    DSC_Info info;
+    //DSC_Info info;
     EngineCore* core = new EngineCore();
-    Inst_op_55 *i55 = new Inst_op_55(&info);
-    Inst_op_56 *i56 = new Inst_op_56(&info);
-    Inst_Timestamp *it = new Inst_Timestamp(&info);
-    Inst_Note *in = new Inst_Note(&info);
-    Inst_EOFC *ieof = new Inst_EOFC(&info);
-    Inst_nop *inop = new Inst_nop(&info);
+    Inst_op_55 *i55 = new Inst_op_55(info);
+    Inst_op_56 *i56 = new Inst_op_56(info);
+    Inst_Timestamp *it = new Inst_Timestamp(info);
+    Inst_Note *in = new Inst_Note(info);
+    Inst_EOFC *ieof = new Inst_EOFC(info);
+    Inst_nop *inop = new Inst_nop(info);
 
     if(LE32((uint32_t*)sequence) == PVSC_LE) { // PVSC file(F2&X)
         if (len_sequence < PVSC_HEADER_LEN)
@@ -43,9 +46,9 @@ STEP parse_dsc(const uint8_t* sequence, uint32_t len_sequence) {
         }
 
         if(header_version == 0x18000000) {
-            info.ver = DSC_Info::VERSION::F2;
+            info->ver = DSC_Info::VERSION::F2;
         } else if(header_version == 0x10000000) {
-            info.ver = DSC_Info::VERSION::X;
+            info->ver = DSC_Info::VERSION::X;
         } else {
             return STEP_BAD_INSTRUCTION_FORMAT;
         }
@@ -56,17 +59,17 @@ STEP parse_dsc(const uint8_t* sequence, uint32_t len_sequence) {
 
         if(header_endian_flag_le32 == header_endian_flag_actual) {
             core->set_endian(ENDIAN_TYPE::ENDIAN_LE);
-            info.endian = ENDIAN_TYPE::ENDIAN_LE;
+            info->endian = ENDIAN_TYPE::ENDIAN_LE;
         } else if (header_endian_flag_le32 ==
                    ENDIAN_REVERSE_32(header_endian_flag_actual)) {
             core->set_endian(ENDIAN_TYPE::ENDIAN_BE);
-            info.endian = ENDIAN_TYPE::ENDIAN_BE;
+            info->endian = ENDIAN_TYPE::ENDIAN_BE;
         } else {
             return STEP_BAD_INSTRUCTION_FORMAT;
         }
-
+#ifdef DEBUG
         printf("#PVSC\n");
-
+#endif
         core->add_inst(i55);
         core->add_inst(i56);
         core->add_inst(it);
@@ -99,5 +102,8 @@ STEP parse_dsc(const uint8_t* sequence, uint32_t len_sequence) {
 }
 
 int main(int argc, char* argv[]) {
-    parse_dsc(data, sizeof(data));
+    DSC_Info info;
+    parse_dsc(&info, data, sizeof(data));
+    return 0;
 }
+

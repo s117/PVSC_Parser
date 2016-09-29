@@ -11,60 +11,6 @@ RECT B
 CIRC R 1A
 CROSS R 1B
 */
-const char* const NoteName[] = {
-    "TRIG",
-    "CIRC",
-    "CROS",
-    "SQUR",
-    "UP  ",
-    "RGHT",
-    "DOWN",
-    "LEFT",
-    "TRIG_LONG",
-    "CIRC_LONG",
-    "CROS_LONG",
-    "SQUR_LONG",
-    "STAR",
-    "UNK_D",
-    "STAR_DOUBLE",
-    "STAR_CHANCE",
-    "UNK_10",
-    "UNK_11",
-    "UNK_12",
-    "UNK_13",
-    "UNK_14",
-    "UNK_15",
-    "STAR_LINE_START",
-    "STAR_LINE_END  ",
-    "UNK_18",
-    "TRIG_RUSH",
-    "CIRC_RUSH",
-    "CROS_RUSH",
-    "SQUR_RUSH",
-};
-enum NOTE_KEYCODE {
-    TRIANGLE        = 0,
-    CIRCLE          = 1,
-    CROSS           = 2,
-    SQUARE          = 3,
-    UP              = 4,
-    RIGHT           = 5,
-    DOWN            = 6,
-    LEFT            = 7,
-    TRIANGLE_LONG   = 8,
-    CIRCLE_LONG     = 9,
-    CROSS_LONG      = 0xA,
-    SQUARE_LONG     = 0xB,
-    STAR            = 0xC,
-    STAR_DOUBLE     = 0xE,
-    STAR_CHANCE     = 0xF,
-    STAR_LINE_START = 0x16,
-    STAR_LINE_END   = 0x17,
-    TRIANGLE_RUSH   = 0x19,
-    CIRCLE_RUSH     = 0x1A,
-    CROSS_RUSH      = 0x1B,
-    SQUARE_RUSH     = 0x1C,
-};
 
 bool Inst_Note::register_inst(IN EngineCore* engine, OUT uint32_t* opcode) {
     if (core == nullptr) {
@@ -91,37 +37,67 @@ STEP Inst_Note::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence)
         return STEP_BAD_INSTRUCTION_FORMAT;
 
     assert(LE32((uint32_t*)sequence) == this->opcode);
+    TimeStamp *stamp = this->info->event_seq.back();
+    Inst *inst = new Inst;
+    Note *note = new Note;
 
-    uint32_t note_keycode = DATA32(info->endian,(uint32_t*)(sequence + 0x4));
+    stamp->inst_list.push_back(inst);
 
-    uint32_t note_hold_length = DATA32(info->endian,(uint32_t*)(sequence + 0x8));
-    uint32_t note_hold2 = DATA32(info->endian,(uint32_t*)(sequence + 0xC));
+    inst->itype = Inst::InstType::NOTE;
+    inst->idata = note;
 
-    uint32_t note_cord_X = DATA32(info->endian,(uint32_t*)(sequence + 0x10));
-    uint32_t note_cord_Y = DATA32(info->endian,(uint32_t*)(sequence + 0x14));
+    const int len_header = 72;
+    note->file_offset = core->get_offset() + len_header;
+    note->note_keycode = DATA32(info->endian,(uint32_t*)(sequence + 0x4));
+    note->note_hold_length = DATA32(info->endian,(uint32_t*)(sequence + 0x8));
+    note->note_hold2 = DATA32(info->endian,(uint32_t*)(sequence + 0xC));
+    note->note_cord_X = DATA32(info->endian,(uint32_t*)(sequence + 0x10));
+    note->note_cord_Y = DATA32(info->endian,(uint32_t*)(sequence + 0x14));
+    note->note_curve_rel1 = DATA32(info->endian,(uint32_t*)(sequence + 0x18));
+    note->note_curve_rel2 = DATA32(info->endian,(uint32_t*)(sequence + 0x1C));
+    note->note_time_offset = DATA32(info->endian,(uint32_t*)(sequence + 0x20));
+    note->note_unk1 = DATA32(info->endian,(uint32_t*)(sequence + 0x24));
+    note->note_unk2 = DATA32(info->endian,(uint32_t*)(sequence + 0x28));
+    note->note_unk3 = DATA32(info->endian,(uint32_t*)(sequence + 0x2C));
+    note->note_unk4 = DATA32(info->endian,(uint32_t*)(sequence + 0x30));
 
-    uint32_t note_curve_rel1 = DATA32(info->endian,(uint32_t*)(sequence + 0x18));
-    uint32_t note_curve_rel2 = DATA32(info->endian,(uint32_t*)(sequence + 0x1C));
-
-    uint32_t note_time_offset = DATA32(info->endian,(uint32_t*)(sequence + 0x20));
-    uint32_t note_unk1 = DATA32(info->endian,(uint32_t*)(sequence + 0x24));
-    uint32_t note_unk2 = DATA32(info->endian,(uint32_t*)(sequence + 0x28));
-    uint32_t note_unk3 = DATA32(info->endian,(uint32_t*)(sequence + 0x2C));
-    uint32_t note_unk4 = DATA32(info->endian,(uint32_t*)(sequence + 0x30));
-
-    if((NOTE_KEYCODE::TRIANGLE_LONG <= note_keycode) && (note_keycode <= NOTE_KEYCODE::SQUARE_LONG)) {
-        if(note_hold_length != 0xffffffff) {
-            printf("Off:%08X, Note %s_DOWN, time: %d(%d + %d), hold param: %d(length), %d\n", core->get_offset() + 72, ((note_keycode <= 0x1c) ? NoteName[note_keycode] : "OUT_OF_RANGE"), note_time_offset + this->info->base_time, this->info->base_time, note_time_offset, note_hold_length, note_hold2);
+#ifdef DEBUG
+    if((NOTE_KEYCODE::TRIANGLE_LONG <= note->note_keycode) && (note->note_keycode <= NOTE_KEYCODE::SQUARE_LONG)) {
+        if(note->note_hold_length != 0xffffffff) {
+            printf("Off:%08X, Note %s_DOWN, time: %d(%d + %d), hold param: %d(length), %d\n",
+                   core->get_offset() + len_header,
+                   ((note->note_keycode <= 0x1c) ? NoteName[note->note_keycode] : "OUT_OF_RANGE"),
+                   note->note_time_offset + stamp->time,
+                   stamp->time,
+                   note->note_time_offset,
+                   note->note_hold_length,
+                   note->note_hold2);
         } else {
-            printf("Off:%08X, Note %s_UP, time: %d(%d + %d)\n", core->get_offset() + 72, ((note_keycode <= 0x1c) ? NoteName[note_keycode] : "OUT_OF_RANGE"), note_time_offset + this->info->base_time, this->info->base_time, note_time_offset);
+            printf("Off:%08X, Note %s_UP, time: %d(%d + %d)\n",
+                   core->get_offset() + 72,
+                   ((note->note_keycode <= 0x1c) ? NoteName[note->note_keycode] : "OUT_OF_RANGE"),
+                   note->note_time_offset + stamp->time,
+                   stamp->time,
+                   note->note_time_offset);
         }
-    } else if((NOTE_KEYCODE::TRIANGLE_RUSH <= note_keycode) && (note_keycode <= NOTE_KEYCODE::SQUARE_RUSH)) {
-        printf("Off:%08X, Note %s, time: %d(%d + %d), rush param: %d(length), %d\n", core->get_offset() + 72, ((note_keycode <= 0x1c) ? NoteName[note_keycode] : "OUT_OF_RANGE"), note_time_offset + this->info->base_time, this->info->base_time, note_time_offset, note_hold_length, note_hold2);
+    } else if((NOTE_KEYCODE::TRIANGLE_RUSH <= note->note_keycode) && (note->note_keycode <= NOTE_KEYCODE::SQUARE_RUSH)) {
+        printf("Off:%08X, Note %s, time: %d(%d + %d), rush param: %d(length), %d\n",
+               core->get_offset() + len_header,
+               ((note->note_keycode <= 0x1c) ? NoteName[note->note_keycode] : "OUT_OF_RANGE"),
+               note->note_time_offset + stamp->time,
+               stamp->time,
+               note->note_time_offset,
+               note->note_hold_length,
+               note->note_hold2);
     } else {
-
-        printf("Off:%08X, Note %s, time: %d(%d + %d)\n", core->get_offset() + 72, ((note_keycode <= 0x1c) ? NoteName[note_keycode] : "OUT_OF_RANGE"), note_time_offset + this->info->base_time, this->info->base_time, note_time_offset);
+        printf("Off:%08X, Note %s, time: %d(%d + %d)\n",
+               core->get_offset() + len_header,
+               ((note->note_keycode <= 0x1c) ? NoteName[note->note_keycode] : "OUT_OF_RANGE"),
+               note->note_time_offset + stamp->time,
+               stamp->time,
+               note->note_time_offset);
     }
-
+#endif
 
     return INST_SIZE;
 }

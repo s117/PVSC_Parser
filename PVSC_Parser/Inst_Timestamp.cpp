@@ -29,7 +29,10 @@ STEP Inst_Timestamp::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequ
         return STEP_BAD_INSTRUCTION_FORMAT;
 
     assert(LE32((uint32_t*)sequence) == this->opcode);
-    info->base_time = DATA32(info->endian,(uint32_t*)(sequence+4));
+
+    TimeStamp *stamp = new TimeStamp;
+    stamp->time = DATA32(info->endian,(uint32_t*)(sequence+4));
+    info->event_seq.push_back(stamp);
 
     return INST_SIZE;
 }

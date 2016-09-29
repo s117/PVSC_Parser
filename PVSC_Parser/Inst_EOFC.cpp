@@ -42,7 +42,11 @@ STEP Inst_EOFC::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence)
         if(DATA32(info->endian,(uint32_t*)(sequence+INST_SIZE+4*i)) != 0x00000000)
             return STEP_BAD_INSTRUCTION_FORMAT;
     }
+
+#ifdef DEBUG
     printf("#EOFC\n");
+#endif
+
     return len_sequence;
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		130230EC1D9D80E100C0ECFD /* DSC_Info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 130230EB1D9D80E100C0ECFD /* DSC_Info.cpp */; };
 		13967A931D87419D00B01C79 /* EngineCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13967A8C1D87419D00B01C79 /* EngineCore.cpp */; };
 		13967A941D87419D00B01C79 /* Inst_Note.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13967A8D1D87419D00B01C79 /* Inst_Note.cpp */; };
 		13967A951D87419D00B01C79 /* Inst_op_55.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13967A8E1D87419D00B01C79 /* Inst_op_55.cpp */; };
@@ -30,6 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		130230EB1D9D80E100C0ECFD /* DSC_Info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSC_Info.cpp; sourceTree = "<group>"; };
 		13967A751D87414900B01C79 /* PVSC_Parser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PVSC_Parser; sourceTree = BUILT_PRODUCTS_DIR; };
 		13967A821D87419400B01C79 /* 801_extreme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 801_extreme.h; sourceTree = "<group>"; };
 		13967A831D87419400B01C79 /* DSC_Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSC_Info.h; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				13967A9C1D87B4E700B01C79 /* Inst_EOFC.cpp */,
+				130230EB1D9D80E100C0ECFD /* DSC_Info.cpp */,
 				13967A9F1D87B51800B01C79 /* Inst_nop.cpp */,
 				13967A8D1D87419D00B01C79 /* Inst_Note.cpp */,
 				13967A8E1D87419D00B01C79 /* Inst_op_55.cpp */,
@@ -225,6 +228,7 @@
 				13967A951D87419D00B01C79 /* Inst_op_55.cpp in Sources */,
 				13967A9E1D87B4E700B01C79 /* Inst_EOFC.cpp in Sources */,
 				13967A941D87419D00B01C79 /* Inst_Note.cpp in Sources */,
+				130230EC1D9D80E100C0ECFD /* DSC_Info.cpp in Sources */,
 				13967A961D87419D00B01C79 /* Inst_op_56.cpp in Sources */,
 				13967AA11D87B51800B01C79 /* Inst_nop.cpp in Sources */,
 				13967A981D87419D00B01C79 /* main.cpp in Sources */,
