@@ -12,26 +12,6 @@ CIRC R 1A
 CROSS R 1B
 */
 
-bool Inst_Note::register_inst(IN EngineCore* engine, OUT uint32_t* opcode) {
-    if (core == nullptr) {
-        core = engine;
-        *opcode = (core->get_endian() == ENDIAN_LE)?INST_OP_CODE:ENDIAN_REVERSE_32(INST_OP_CODE);
-        this->opcode = *opcode;
-        return true;
-    }
-    return false;
-}
-
-bool Inst_Note::unregister_inst(IN EngineCore* engine) {
-    if (core == engine) {
-        core = nullptr;
-        return true;
-    }
-    return false;
-}
-
-//#define LE32(addr) (*(uint32_t*)(addr))
-
 STEP Inst_Note::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence) {
     if (len_sequence < INST_SIZE)
         return STEP_BAD_INSTRUCTION_FORMAT;
@@ -102,9 +82,8 @@ STEP Inst_Note::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence)
     return INST_SIZE;
 }
 
-Inst_Note::Inst_Note(DSC_Info* info) {
-    this->info = info;
-}
+Inst_Note::Inst_Note(): DSC_Inst(INST_OP_CODE, INST_SIZE) {}
 
+Inst_Note::Inst_Note(DSC_Info* info) : DSC_Inst(INST_OP_CODE, INST_SIZE, info) {}
 
 Inst_Note::~Inst_Note() {}
