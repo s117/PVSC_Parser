@@ -4,15 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>PVSC_Parser.xcscheme</key>
+		<key>PVSC_Parser_test.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1361B7A61D9DA44600793DA1</key>
+		<key>1361B80D1D9DA5F900793DA1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
