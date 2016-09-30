@@ -75,7 +75,7 @@ typedef struct __TimeStamp {
     std::list<Inst*> inst_list;
 } TimeStamp;
 
-typedef struct __DSC_Info {
+class DSC_Info {
 public:
     enum VERSION {
         F,
@@ -86,6 +86,7 @@ public:
     uint32_t payload_len;
 
     std::list<TimeStamp*> event_seq;
-} DSC_Info;
+    ~DSC_Info();
+};
 
 #endif

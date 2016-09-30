@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
     DSC_Info info;
     PVSC_Parser *parser = new PVSC_Parser();
     parser->parse_dsc(&info, data, sizeof(data));
-
+    parser->free_info(&info);
     return 0;
 }
 

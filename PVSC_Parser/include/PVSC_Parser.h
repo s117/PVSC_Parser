@@ -24,6 +24,7 @@ public:
     PVSC_Parser();
     ~PVSC_Parser();
     STEP parse_dsc(DSC_Info *info, const uint8_t* sequence, uint32_t len_sequence);
+    static void free_info(DSC_Info *info);
 private:
     EngineCore* core;
     Inst_op_55 *i55;

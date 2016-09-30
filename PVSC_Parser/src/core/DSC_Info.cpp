@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include "DSC_Info.h"
+#include "PVSC_Parser.h"
 const char* const NoteName[] = {
     "TRIG",
     "CIRC",
@@ -39,3 +40,7 @@ const char* const NoteName[] = {
     "CROS_RUSH",
     "SQUR_RUSH",
 };
+
+DSC_Info::~DSC_Info(){
+    PVSC_Parser::free_info(this);
+}
