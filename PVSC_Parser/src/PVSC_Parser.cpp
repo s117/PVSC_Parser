@@ -56,7 +56,8 @@ STEP PVSC_Parser::parse_dsc(DSC_Info *info, const uint8_t* sequence, uint32_t le
             return STEP_BAD_INSTRUCTION_FORMAT;
         }
 
-        if((header_payload_1 != header_payload_2) || (header_payload_1+112 != len_sequence)) {
+        //if((header_payload_1 != header_payload_2) || (header_payload_1+112 != len_sequence)) {
+        if(header_payload_1 != header_payload_2) {
             return STEP_BAD_INSTRUCTION_FORMAT;
         }
 
