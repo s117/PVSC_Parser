@@ -41,6 +41,6 @@ const char* const NoteName[] = {
     "SQUR_RUSH",
 };
 
-DSC_Info::~DSC_Info(){
+DSC_Info::~DSC_Info() {
     PVSC_Parser::free_info(this);
 }

@@ -90,22 +90,22 @@ STEP PVSC_Parser::parse_dsc(DSC_Info *info, const uint8_t* sequence, uint32_t le
     return step;
 }
 
-void PVSC_Parser::free_info(DSC_Info *info){
+void PVSC_Parser::free_info(DSC_Info *info) {
     std::list<TimeStamp*>::iterator it_ts;
     std::list<Inst*>::iterator it_inst;
     it_ts = info->event_seq.begin();
-    while(it_ts != info->event_seq.end()){
-        for(it_inst = (*it_ts)->inst_list.begin(); it_inst != (*it_ts)->inst_list.end(); ++it_inst){
+    while(it_ts != info->event_seq.end()) {
+        for(it_inst = (*it_ts)->inst_list.begin(); it_inst != (*it_ts)->inst_list.end(); ++it_inst) {
             switch ((*it_inst)->itype) {
-                case Inst::InstType::NOTE:
-                    delete ((Note*)(*it_inst)->idata);
-                    break;
-                case Inst::InstType::I55:
-                    delete ((I55*)(*it_inst)->idata);
-                    break;
-                case Inst::InstType::I56:
-                    delete ((I56*)(*it_inst)->idata);
-                    break;
+            case Inst::InstType::NOTE:
+                delete ((Note*)(*it_inst)->idata);
+                break;
+            case Inst::InstType::I55:
+                delete ((I55*)(*it_inst)->idata);
+                break;
+            case Inst::InstType::I56:
+                delete ((I56*)(*it_inst)->idata);
+                break;
             }
             delete *it_inst;
         }
