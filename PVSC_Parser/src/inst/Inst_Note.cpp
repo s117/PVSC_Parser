@@ -44,7 +44,7 @@ STEP Inst_Note::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence)
 #ifdef DEBUG
     if((NOTE_KEYCODE::TRIANGLE_LONG <= note->note_keycode) && (note->note_keycode <= NOTE_KEYCODE::SQUARE_LONG)) {
         if(note->note_hold_length != 0xffffffff) {
-            printf("Off:%08X, Note %s_DOWN, time: %d(%d + %d), hold param: %d(length), %d\n",
+            printf("Off:%08X, Note %s_DOWN, time: %d(%d + %d), hold param: %d(length), %d. ",
                    core->get_offset() + len_header,
                    ((note->note_keycode <= 0x1c) ? NoteName[note->note_keycode] : "OUT_OF_RANGE"),
                    note->note_time_offset + stamp->time,
@@ -53,7 +53,7 @@ STEP Inst_Note::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence)
                    note->note_hold_length,
                    note->note_hold2);
         } else {
-            printf("Off:%08X, Note %s_UP, time: %d(%d + %d)\n",
+            printf("Off:%08X, Note %s_UP, time: %d(%d + %d). ",
                    core->get_offset() + 72,
                    ((note->note_keycode <= 0x1c) ? NoteName[note->note_keycode] : "OUT_OF_RANGE"),
                    note->note_time_offset + stamp->time,
@@ -61,7 +61,7 @@ STEP Inst_Note::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence)
                    note->note_time_offset);
         }
     } else if((NOTE_KEYCODE::TRIANGLE_RUSH <= note->note_keycode) && (note->note_keycode <= NOTE_KEYCODE::SQUARE_RUSH)) {
-        printf("Off:%08X, Note %s, time: %d(%d + %d), rush param: %d(length), %d\n",
+        printf("Off:%08X, Note %s, time: %d(%d + %d), rush param: %d(length), %d. ",
                core->get_offset() + len_header,
                ((note->note_keycode <= 0x1c) ? NoteName[note->note_keycode] : "OUT_OF_RANGE"),
                note->note_time_offset + stamp->time,
@@ -70,13 +70,27 @@ STEP Inst_Note::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence)
                note->note_hold_length,
                note->note_hold2);
     } else {
-        printf("Off:%08X, Note %s, time: %d(%d + %d)\n",
+        printf("Off:%08X, Note %s, time: %d(%d + %d). ",
                core->get_offset() + len_header,
                ((note->note_keycode <= 0x1c) ? NoteName[note->note_keycode] : "OUT_OF_RANGE"),
                note->note_time_offset + stamp->time,
                stamp->time,
                note->note_time_offset);
     }
+    printf("f_off = %d, ", note->file_offset);
+    printf("key = %d, ", note->note_keycode);
+    printf("h_len = %d, ", note->note_hold_length);
+    printf("h2 = %d, ", note->note_hold2);
+    printf("co_X = %d, ", note->note_cord_X);
+    printf("co_Y = %d, ", note->note_cord_Y);
+    printf("cur_1 = %d, ", note->note_curve_rel1);
+    printf("cur_2 = %d, ", note->note_curve_rel2);
+    printf("tm_off = %d, ", note->note_time_offset);
+    printf("unk1 = %d, ", note->note_unk1);
+    printf("unk2 = %d, ", note->note_unk2);
+    printf("unk3 = %d, ", note->note_unk3);
+    printf("unk4 = %d \n", note->note_unk4);
+
 #endif
 
     return INST_SIZE;

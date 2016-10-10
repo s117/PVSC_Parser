@@ -22,7 +22,13 @@ STEP Inst_op_55::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence
     const int len_header = 72;
     i55->file_offset = core->get_offset() + len_header;
     i55->i55_unk1 = DATA32(info->endian,(uint32_t*)(sequence + 0x4));
-
+#ifdef DEBUG
+    printf("Off:%08X, I55, timestamp: %d, param1: %d. \n",
+           core->get_offset() + len_header,
+           stamp->time,
+           i55->i55_unk1
+           );
+#endif
     return INST_SIZE;
 }
 

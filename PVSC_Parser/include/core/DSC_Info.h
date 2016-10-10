@@ -66,7 +66,7 @@ typedef struct __I55 {
 } I55;
 
 typedef struct __I56 {
-    uint32_t i55_unk1;
+    uint32_t i56_unk1;
     uint32_t file_offset;
 } I56;
 
