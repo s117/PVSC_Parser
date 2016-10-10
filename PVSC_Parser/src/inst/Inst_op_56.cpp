@@ -27,7 +27,7 @@ STEP Inst_op_56::parse_inst(IN const uint8_t* sequence, IN uint32_t len_sequence
            core->get_offset() + len_header,
            stamp->time,
            i56->i56_unk1
-           );
+          );
 #endif
     return INST_SIZE;
 }
