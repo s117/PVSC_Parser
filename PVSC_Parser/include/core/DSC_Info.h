@@ -24,6 +24,7 @@ enum NOTE_KEYCODE {
     STAR            = 0xC,
     STAR_DOUBLE     = 0xE,
     STAR_CHANCE     = 0xF,
+    STAR_RUSH       = 0x11,
     STAR_LINE_START = 0x16,
     STAR_LINE_END   = 0x17,
     TRIANGLE_RUSH   = 0x19,
