@@ -27,7 +27,7 @@ const char* const NoteName[] = {
     "STAR_DOUBLE",
     "STAR_CHANCE",
     "UNK_10",
-    "UNK_11",
+    "STAR_RUSH",
     "UNK_12",
     "UNK_13",
     "UNK_14",
